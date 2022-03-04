@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign up</title>
+    <link rel="stylesheet" href="../style_common.css" />
+
+</head>
+<body>
+
+    <div class="mainContent">
+        <h1>Sign Up</h1>
+
+        <form id="inputCreds">
+            <label for="id_input_username">Username</label><br>
+            <input id="id_input_username" type="text" /><br>
+
+            <label for="id_input_organization">Organization</label><br>
+            <input id="id_input_organization" type="text" /><br>
+
+            <label for="id_input_password">Password</label><br>
+            <input id="id_input_password" type="password" /><br>
+
+            <label for="id_input_repassword">Re-enter Password</label><br>
+            <input id="id_input_repassword" type="password" /><br>
+
+            <button>Sign Up</button>
+        </form>
+        
+        <br>
+        <p id="id_debugInfo"></p>
+        
+        <br>
+        <a href="index.html">Cancel</a>
+        
+    </div>
+
+
+    <script>
+
+
+        function validateLocalInputs(username, organization, pass1, pass2) {
+            let infoText = document.getElementById("id_debugInfo");
+            
+            if(!(pass1 === pass2)) {
+                infoText.innerHTML = "*Passwords has to match!";
+                return false;
+            }
+            else if(username.length <= 0) {
+                infoText.innerHTML = "*Username has to be longer";
+                return false;
+            }
+            else if(organization.length <= 0) {
+                infoText.innerHTML = "*Organization name has to be longer!";
+                return false;
+            }
+
+            return true;
+        }
+
+        const form_creds = document.getElementById("inputCreds");
+        form_creds.autocomplete = "off";
+    
+        form_creds.onsubmit = function(event) {
+            event.preventDefault();
+
+            let username = document.getElementById("id_input_username").value;
+            let organization = document.getElementById("id_input_organization").value;
+            let passwd1 = document.getElementById("id_input_password").value;
+            let passwd2 = document.getElementById("id_input_repassword").value;
+    
+            console.log("Validation: " + validateLocalInputs(username, organization, passwd1, passwd2));
+
+            // Send http req here
+        }
+
+    </script>
+
+</body>
+</html>
