@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 import users.views
+import files.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +25,6 @@ urlpatterns = [
     
     path('users/createNew/', users.views.view_createUser),
     path('users/login/', users.views.view_login),
-    path('users/logout/', users.views.view_logout)
+    path('users/logout/', users.views.view_logout),
+    path('files/upload/', files.views.view_uploadFile)
 ]

@@ -17,7 +17,13 @@
         <br>
         <p id="id_debugInfo"></p>
         <br>
-        
+
+        <form id="id_uploadForm">
+            <label for="id_inputFile">Choose file to upload</label><br>
+            <input id="id_inputFile" type="file"/><br><br>
+
+            <button>Upload</button>
+        </form>
     </div>
 
 
@@ -28,6 +34,26 @@
 
         console.log(document.cookie);
 
+
+        // JUST TESTING ATM
+        
+        document.getElementById("id_uploadForm").onsubmit = function(event) {
+            event.preventDefault();    
+
+            let fileData = document.getElementById("id_inputFile").files[0];
+
+            if(fileData) {
+                sendReq_uploadFile(fileData);
+            }
+        }
+
+        /*let req = new XMLHttpRequest();
+        let formData = new FormData();
+        
+        formData.append("photo", photo);                                
+        req.open("POST", '/upload/image');
+        req.send(formData);
+        */
 
     </script>
 

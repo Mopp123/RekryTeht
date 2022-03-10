@@ -8,6 +8,12 @@ function onClick_switchTo_signup() {
 	console.log("Switching to sign up");
 }
 
+function setInfoText(txt) {
+	let infoText = document.getElementById("id_debugInfo");
+	infoText.innerHTML = txt;
+}
+
+
 /*
 function reqTest() {
 	const xhr = new XMLHttpRequest();
@@ -92,9 +98,7 @@ function sendReq_login(username, password) {
 function sendReq_logout() {
 	const xhr = new XMLHttpRequest();
 	
-	let infoText = document.getElementById("id_debugInfo");
-	// Reset prev info text
-	infoText.innerHTML = "Logging out...";
+	setInfoText("Logging out...");
 
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState === 4) {
@@ -115,5 +119,19 @@ function sendReq_logout() {
 
 	xhr.open("POST", "/users/logout/", true);
 	xhr.send();
+	
+}
+
+
+function sendReq_uploadFile(file) {
+	let xhr = new XMLHttpRequest();
+	
+	setInfoText("Attempting to upload file...");
+	
+	let formData = new FormData();
+	formData.append("file", file);
+
+	xhr.open("POST", "/files/upload/", true);
+	xhr.send(formData);
 	
 }
