@@ -38,9 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'myapi',
-    'files',
     'frontend',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -115,6 +116,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+#Session stuff..
+SESSION_COOKIE_HTTPONLY = True
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

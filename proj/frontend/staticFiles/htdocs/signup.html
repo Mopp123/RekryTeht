@@ -4,7 +4,7 @@
 <head>
     <title>Sign up</title>
     <link rel="stylesheet" href="../style_common.css" />
-
+    <script defer src="../mainCommon.js"></script>
 </head>
 <body>
 
@@ -38,7 +38,6 @@
 
     <script>
 
-
         function validateLocalInputs(username, organization, pass1, pass2) {
             let infoText = document.getElementById("id_debugInfo");
             
@@ -69,9 +68,15 @@
             let passwd1 = document.getElementById("id_input_password").value;
             let passwd2 = document.getElementById("id_input_repassword").value;
     
-            console.log("Validation: " + validateLocalInputs(username, organization, passwd1, passwd2));
+    
+            let validationSuccess = validateLocalInputs(username, organization, passwd1, passwd2);
+            console.log("Validation: " + validationSuccess);
 
-            // Send http req here
+            if(validationSuccess){
+                // Send http req here
+                sendReq_signUp(username, organization, passwd1);
+                
+            }
         }
 
     </script>

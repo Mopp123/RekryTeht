@@ -16,9 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-import frontend.views
+import users.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('myapi/', include('myapi.urls'))
+    path('myapi/', include('myapi.urls')),
+    
+    path('users/createNew/', users.views.view_createUser),
+    path('users/login/', users.views.view_login),
+    path('users/logout/', users.views.view_logout)
 ]

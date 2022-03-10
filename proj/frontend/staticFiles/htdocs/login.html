@@ -4,7 +4,7 @@
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="../style_common.css" />
-
+    <script defer src="../mainCommon.js"></script>
 </head>
 <body>
 
@@ -38,12 +38,12 @@
         form_creds.autocomplete = "off";
 
         form_creds.onsubmit = function(event) {
-        event.preventDefault();
+            event.preventDefault();
 
-        let username = document.getElementById("id_input_username").value;
-        let passwd = document.getElementById("id_input_password").value;
-        
-        // Send http req here
+            let username = document.getElementById("id_input_username").value;
+            let passwd = document.getElementById("id_input_password").value;
+            
+            sendReq_login(username, passwd);
         }
 
     </script>
