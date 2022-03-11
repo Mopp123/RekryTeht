@@ -2,14 +2,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Main</title>
-    <link rel="stylesheet" href="../style_common.css" />
-    <script defer src="../mainCommon.js"></script>
+    	<title>Main</title>
+    	<link rel="stylesheet" href="../style_common.css" />
+	<script src="../global.js"></script>
+    	<script defer src="../mainCommon.js"></script>
+	<script defer src="../files.js"></script>
+
+
 </head>
 <body>
 
     <div class="mainContent">
-        <h1 id="id_title">Welcome!</h1>
+        <h1 id="id_title">Welcome</h1>
 
         <button onclick="sendReq_logout()">Logout</button>
 
@@ -20,10 +24,26 @@
 
         <form id="id_uploadForm">
             <label for="id_inputFile">Choose file to upload</label><br>
-            <input id="id_inputFile" type="file"/><br><br>
+            <input id="id_inputFile" type="file" /><br><br>
 
             <button>Upload</button>
         </form>
+    </div>
+
+    <br><br><br>
+
+    <div class="mainContent" id="id_fileBrowser">
+        
+        <form id="id_searchFile">
+            <label for="id_inputSearchFile">Search file</label><br>
+            <input id="id_inputSearchFile" type="text" /><br><br>
+
+            <button>Refresh</button>
+        </form>
+
+        <h2>Uploaded files:</h2>
+        <ul id="id_fileListing">
+	</ul>
     </div>
 
 
@@ -32,11 +52,9 @@
         
         console.log("Login appeared to be successful...");
 
-        console.log(document.cookie);
-
-
-        // JUST TESTING ATM
+        document.getElementById("id_title").innerHTML = "Welcome " + getCookie("username") + "!";
         
+	// Submit upload
         document.getElementById("id_uploadForm").onsubmit = function(event) {
             event.preventDefault();    
 
@@ -46,16 +64,17 @@
                 sendReq_uploadFile(fileData);
             }
         }
+	
+	
+	// Submit search	
+        document.getElementById("id_searchFile").onsubmit = function(event) {
+            	event.preventDefault();    
 
-        /*let req = new XMLHttpRequest();
-        let formData = new FormData();
-        
-        formData.append("photo", photo);                                
-        req.open("POST", '/upload/image');
-        req.send(formData);
-        */
+		sendReq_getFileListing();
+        }
+	
 
-    </script>
+</script>
 
 </body>
 </html>

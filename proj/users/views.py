@@ -72,8 +72,6 @@ def view_logout(request, *args, **kwargs):
     print("Attempting to logout user")
     data = {}
     
-    print(request.body)
-    
     try:
         del request.session['id']
         print("User logged out successfully")

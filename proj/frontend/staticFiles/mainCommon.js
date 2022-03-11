@@ -14,20 +14,6 @@ function setInfoText(txt) {
 }
 
 
-/*
-function reqTest() {
-	const xhr = new XMLHttpRequest();
-	xhr.onload = function() {
-		console.log("Req completed!");
-	}
-
-	xhr.open('POST', '/myapi/', true);
-	xhr.setRequestHeader("content-type", "application/json");
-	let body = '{ "message":"vittusaatana" }'
-	console.log("sending: " + body);
-	xhr.send(body);
-}
-*/
 
 function sendReq_signUp(username, organization, password) {
 	const xhr = new XMLHttpRequest();
@@ -61,9 +47,7 @@ function sendReq_signUp(username, organization, password) {
 function sendReq_login(username, password) {
 	const xhr = new XMLHttpRequest();
 	
-	let infoText = document.getElementById("id_debugInfo");
-	// Reset prev info text
-	infoText.innerHTML = "Logging in...";
+	setInfoText("Logging in...");
 
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState === 4) {
@@ -73,11 +57,11 @@ function sendReq_login(username, password) {
 			let responseData = JSON.parse(xhr.response);
 			console.log(responseData);
 			if(responseData['message'] === "success") {
-				
+				setCookie("username", username, 1);
 				// Switch to "main page"
-				window.location.href = "main.html";
+				window.location.href = "main.html";	
 			}else{
-				infoText.innerHTML = "Failed to login";
+				setInfoText("Failed to login");
 			}
 
 		}
@@ -111,7 +95,7 @@ function sendReq_logout() {
 				// Switch back to index
 				window.location.href = "index.html";
 			}else{
-				infoText.innerHTML = "Failed to logout.. wtf!!?!?! shouldnt be possible xD";
+				setInfoText("Failed to logout.. wtf!!?!?! shouldnt be possible xD");
 			}
 
 		}
@@ -128,10 +112,58 @@ function sendReq_uploadFile(file) {
 	
 	setInfoText("Attempting to upload file...");
 	
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState === 4) {
+			sendReq_getFileListing();
+		}
+	}
+
 	let formData = new FormData();
 	formData.append("file", file);
 
 	xhr.open("POST", "/files/upload/", true);
-	xhr.send(formData);
+	xhr.send(formData);	
+}
+
+// Requests ALL uploads
+function sendReq_getFileListing() {
+	let xhr = new XMLHttpRequest();
 	
+	setInfoText("Getting uploads...");
+	
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState === 4){
+			setInfoText("");
+			
+			let responseData = JSON.parse(xhr.response);
+			clearFileListing();
+			// Add each acquired file data to listing
+			for(let key in responseData) {
+				console.log(key);
+				f = new FileData(String(key));
+				addFileToListing(f);
+			}
+		}
+	}
+
+	xhr.open("POST", "/files/getListing/", true);
+	xhr.send();	
+}
+
+function sendReq_getFile(name) {
+	let xhr = new XMLHttpRequest();
+	
+	setInfoText("Attempting to download file...");
+	
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState === 4){
+			setInfoText("");
+			
+			let responseData = JSON.parse(xhr.response);
+			console.log(responseData);	
+		}
+	}
+
+	xhr.open("POST", "/files/get/", true);
+	xhr.send('{"filename:"' + name + '"}');
 }
