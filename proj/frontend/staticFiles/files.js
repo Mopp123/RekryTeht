@@ -1,10 +1,14 @@
 
 class FileData {
 	
-	constructor(name) {
+	constructor(name, url) {
 		this.name = name;
+		this.url = url;
+
+		console.log(this.url);
 	}
 }
+
 
 
 
@@ -13,7 +17,10 @@ function addFileToListing(fileData) {
 	
 	let newNode = document.createElement("li");
 	let newLinkNode = document.createElement("a");
-	newLinkNode.setAttribute("href","#");
+	//newLinkNode.setAttribute("href",'javascript:sendReq_getFile("' + fileData.name + '")');
+	newLinkNode.setAttribute("href", fileData.url);
+	newLinkNode.setAttribute("download", fileData.name);
+	//newLinkNode.setAttribute("onclick", 'window.location.href=../../uploads/' + fileData.name);
 
 	let newTxtNode = document.createTextNode(fileData.name);
 	

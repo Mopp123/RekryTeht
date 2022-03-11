@@ -140,7 +140,7 @@ function sendReq_getFileListing() {
 			// Add each acquired file data to listing
 			for(let key in responseData) {
 				console.log(key);
-				f = new FileData(String(key));
+				f = new FileData(String(key), String(responseData[key]));
 				addFileToListing(f);
 			}
 		}
@@ -165,5 +165,5 @@ function sendReq_getFile(name) {
 	}
 
 	xhr.open("POST", "/files/get/", true);
-	xhr.send('{"filename:"' + name + '"}');
+	xhr.send('{"filename":"' + name + '"}');
 }

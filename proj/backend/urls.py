@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 import users.views
 import files.views
@@ -27,5 +29,7 @@ urlpatterns = [
     path('users/login/', users.views.view_login),
     path('users/logout/', users.views.view_logout),
     path('files/upload/', files.views.view_uploadFile),
-    path('files/getListing/', files.views.view_getFileListing)
-]
+    path('files/getListing/', files.views.view_getFileListing),
+    path('files/get/', files.views.view_getFile)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

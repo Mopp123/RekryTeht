@@ -7,7 +7,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.decorators import parser_classes
 
-
+from django.conf import settings
+import os
 
 from files.models import File
 
@@ -37,7 +38,7 @@ def view_getFileListing(request, *args, **kwargs):
 
         fileSet = File.objects.all()
         for f in fileSet.iterator():
-            responseData[f.fileData.name] = "file"
+            responseData[f.fileData.name] = f.fileData.url
 
         return Response(responseData)
 
@@ -54,6 +55,15 @@ def view_getFile(request, *args, **kwargs):
     try:
 
         reqData = json.loads(request.body)
+        
+        filesSet = File.objects.all();
+        for f in filesSet.iterator():
+            if f.fileData.name == reqData['filename']:
+                print("FILE FOUND :)")
+                file_obj = f.fileData
+                path = os.path.join(settings.MEDIA_ROOT, file_obj.name)
+                return Response({'file': path}, status=201)
+
         return Response({"message":"success"})
 
     except:
