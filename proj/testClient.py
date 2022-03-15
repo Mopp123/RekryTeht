@@ -1,5 +1,5 @@
 
-import requests
+#import requests
 from users.models import User
 #endpoint = "http://localhost:8000/myapi/"
 
@@ -7,6 +7,7 @@ from users.models import User
 
 
 print("Current users:")
-print(User.objects.all())
-#for u in User.objects:
-#    print(u)
+#usersSet = User.objects.all()
+
+
+
